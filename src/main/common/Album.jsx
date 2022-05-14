@@ -1,31 +1,72 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Box, Grid } from '@mui/material';
+import {
+  Box, FormControl, FormHelperText, Grid, MenuItem, Pagination, Select,
+} from '@mui/material';
 import PropTypes from 'prop-types';
-import { getProfiles } from '../action/albumAction';
 import Spinner from './Spinner';
 import Thumbnail from './Thumbnail';
+import { getItems } from '../action/albumAction';
 
 function Album({ album, dispatch }) {
-  const { profiles, profilesLoading } = album;
+  const { items, total, loading } = album;
+
+  const [page, setPage] = React.useState(1);
+  const [itemsPerPage, setItemsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeItemsPerPage = (event) => {
+    setItemsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
+  };
+
+  const totalPages = Math.ceil(total / itemsPerPage);
+  const offset = (page - 1) * itemsPerPage;
 
   useEffect(() => {
-    dispatch(getProfiles());
-  }, []);
-
-  if (profilesLoading) { return <Spinner />; }
+    dispatch(getItems(offset, itemsPerPage));
+  }, [offset, itemsPerPage]);
 
   return (
     <Box>
-      <Grid container>
-        {
-          profiles.map(
-            (profile) => (
-              <Thumbnail key={profile.id} profile={profile} />
-            ),
-          )
-        }
+      <Grid container justifyContent="space-evenly">
+        <Grid item>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              value={itemsPerPage}
+              onChange={handleChangeItemsPerPage}
+              size="small"
+            >
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={50}>50</MenuItem>
+              <MenuItem value={100}>100</MenuItem>
+            </Select>
+            <FormHelperText>Items per page</FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <Pagination count={totalPages} page={page} onChange={handleChangePage} color="primary" variant="outlined" shape="rounded" size="large" showFirstButton showLastButton />
+        </Grid>
       </Grid>
+      {
+        loading
+          ? <Spinner />
+          : (
+            <Grid container justifyContent="center">
+              {
+                items.map(
+                  (item) => (
+                    <Thumbnail key={item.id} profile={item} />
+                  ),
+                )
+              }
+            </Grid>
+          )
+      }
     </Box>
   );
 }
@@ -33,8 +74,9 @@ function Album({ album, dispatch }) {
 Album.propTypes = {
   dispatch: PropTypes.func.isRequired,
   album: PropTypes.exact({
-    profilesLoading: PropTypes.bool,
-    profiles: PropTypes.arrayOf(PropTypes.shape({
+    loading: PropTypes.bool,
+    total: PropTypes.number.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       alias: PropTypes.string,

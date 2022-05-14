@@ -1,38 +1,38 @@
 import axios from 'axios';
-import { album } from '../constant/type';
+import { loadAlbum } from '../constant/type';
 import { buildParams } from '../util/apiUtility';
 
-export function getProfilesPending() {
+export function getItemsPending() {
   return {
-    type: album.pending,
+    type: loadAlbum.pending,
   };
 }
 
-export function getProfilesFailure(payload) {
+export function getItemsFailure(payload) {
   return {
-    type: album.failure,
+    type: loadAlbum.failure,
     payload,
   };
 }
 
-export function getProfilesSuccess(payload) {
+export function getItemsSuccess(payload) {
   return {
-    type: album.success,
+    type: loadAlbum.success,
     payload,
   };
 }
 
-export const getProfiles = () => (
+export const getItems = (offset, limit) => (
   (dispatch) => {
-    dispatch(getProfilesPending());
+    dispatch(getItemsPending());
     return axios.get('/characters', {
-      params: buildParams(),
+      params: buildParams(offset, limit),
     })
       .then((response) => {
-        dispatch(getProfilesSuccess(response.data));
+        dispatch(getItemsSuccess(response.data));
       })
       .catch((err) => {
-        dispatch(getProfilesFailure(err));
+        dispatch(getItemsFailure(err));
       });
   }
 );

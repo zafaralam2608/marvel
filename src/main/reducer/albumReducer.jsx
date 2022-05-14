@@ -1,29 +1,33 @@
-import { album } from '../constant/type';
+import { loadAlbum } from '../constant/type';
 
 const initialState = {
-  profiles: [],
-  profilesLoading: false,
+  items: [],
+  total: 0,
+  loading: false,
 };
 
 const albumReducer = (state = initialState, action) => {
   const finalState = { ...state };
 
   switch (action.type) {
-    case album.pending: {
-      finalState.profilesLoading = true;
+    case loadAlbum.pending: {
+      finalState.loading = true;
       break;
     }
-    case album.failure: {
-      finalState.profilesLoading = false;
-      finalState.profiles = [];
+    case loadAlbum.failure: {
+      finalState.loading = false;
+      finalState.items = [];
       break;
     }
-    case album.success: {
-      finalState.profilesLoading = false;
+    case loadAlbum.success: {
+      finalState.loading = false;
+      finalState.total = action.payload.data.total;
+      const list = [];
       action.payload.data.results.forEach((profile) => {
         const { id, name, thumbnail } = profile;
-        finalState.profiles.push({ id, name, thumbnail });
+        list.push({ id, name, thumbnail });
       });
+      finalState.items = list;
       break;
     }
     default:

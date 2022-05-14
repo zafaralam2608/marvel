@@ -13,7 +13,7 @@ function Thumbnail({ profile }) {
     }}
     >
       <CardHeader
-        title={<a href={`/profile/${id}`} style={{ textDecoration: 'none' }} title="View">{ name.slice(0, 16)}</a>}
+        title={<a href={`/profile/${id}`} style={{ textDecoration: 'none' }} title={name}>{ name.slice(0, 16)}</a>}
       />
       <CardMedia
         sx={{ height: '250px', width: '250px' }}
