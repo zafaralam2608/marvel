@@ -12,7 +12,7 @@ function Album({ album, dispatch }) {
   const { items, total, loading } = album;
 
   const [page, setPage] = React.useState(1);
-  const [itemsPerPage, setItemsPerPage] = React.useState(10);
+  const [itemsPerPage, setItemsPerPage] = React.useState(20);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

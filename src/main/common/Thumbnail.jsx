@@ -13,12 +13,12 @@ function Thumbnail({ profile }) {
     }}
     >
       <CardHeader
-        title={<a href={`/profile/${id}`} style={{ textDecoration: 'none' }} title={name}>{ name.slice(0, 16)}</a>}
+        title={<a href={`/characters/${id}`} style={{ textDecoration: 'none' }} title={name}>{ name.slice(0, 16)}</a>}
       />
       <CardMedia
         sx={{ height: '250px', width: '250px' }}
         component="img"
-        src={`${thumbnail.path}.${thumbnail.extension}`}
+        src={`${thumbnail.path}/standard_large.${thumbnail.extension}`}
         onError={(e) => { e.target.src = '../images/photo'; }}
       />
     </Card>

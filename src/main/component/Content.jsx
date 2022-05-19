@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Box, Container, Toolbar } from '@mui/material';
-import Album from '../common/Album';
+import { routes } from '../constant/route';
 
 function Content() {
   return (
@@ -16,7 +16,13 @@ function Content() {
       <Toolbar />
       <Container maxWidth="100%" sx={{ mt: 5, mb: 5 }}>
         <Routes>
-          <Route path="/" element={<Album />} />
+          {
+                routes.map(
+                  (route) => (
+                    <Route key={route.key} path={route.link} element={route.component} />
+                  ),
+                )
+              }
         </Routes>
       </Container>
     </Box>

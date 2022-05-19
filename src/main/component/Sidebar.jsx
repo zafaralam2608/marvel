@@ -3,9 +3,10 @@ import {
   Divider, IconButton, Link, List, ListItem, ListItemIcon, ListItemText,
 } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
-import { ChevronLeft, Dashboard, People } from '@mui/icons-material';
+import { ChevronLeft } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import Drawer from '../common/Drawer';
+import { navs } from '../constant/route';
 
 function Sidebar({ open, handleDrawerClose }) {
   return (
@@ -24,22 +25,20 @@ function Sidebar({ open, handleDrawerClose }) {
       </Toolbar>
       <Divider />
       <List component="nav">
-        <Link href="/">
-          <ListItem button>
-            <ListItemIcon>
-              <Dashboard />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-        </Link>
-        <Link href="/profiles">
-          <ListItem button>
-            <ListItemIcon>
-              <People />
-            </ListItemIcon>
-            <ListItemText primary="Profiles" />
-          </ListItem>
-        </Link>
+        {
+          navs.map(
+            (nav) => (
+              <Link key={nav.key} href={nav.link}>
+                <ListItem button>
+                  <ListItemIcon>
+                    {nav.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={nav.label} />
+                </ListItem>
+              </Link>
+            ),
+          )
+        }
       </List>
     </Drawer>
   );
