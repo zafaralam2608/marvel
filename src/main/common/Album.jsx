@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
-  Box, FormControl, FormHelperText, Grid, MenuItem, Pagination, Select,
+  Box, FormControl, FormHelperText, Grid, MenuItem, Pagination, Select, TextField,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
@@ -11,8 +11,9 @@ import { getItems } from '../action/albumAction';
 function Album({ album, dispatch }) {
   const { items, total, loading } = album;
 
-  const [page, setPage] = React.useState(1);
-  const [itemsPerPage, setItemsPerPage] = React.useState(20);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [search, setSearch] = useState('');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -23,16 +24,29 @@ function Album({ album, dispatch }) {
     setPage(1);
   };
 
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
   const totalPages = Math.ceil(total / itemsPerPage);
   const offset = (page - 1) * itemsPerPage;
+  const firstItem = itemsPerPage * (page - 1) + 1;
+  const lastItem = (itemsPerPage * page < total) ? itemsPerPage * page : total;
 
   useEffect(() => {
-    dispatch(getItems(offset, itemsPerPage));
-  }, [offset, itemsPerPage]);
+    dispatch(getItems(offset, itemsPerPage, search));
+  }, [offset, itemsPerPage, search]);
+
+  if (loading) {
+    return (<Spinner />);
+  }
 
   return (
     <Box>
       <Grid container justifyContent="space-evenly">
+        <Grid item sx={{ m: 1, minWidth: 120 }}>
+          <TextField size="small" placeholder="Search" value={search} onChange={handleChangeSearch} />
+        </Grid>
         <Grid item>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
@@ -50,23 +64,18 @@ function Album({ album, dispatch }) {
         </Grid>
         <Grid item>
           <Pagination count={totalPages} page={page} onChange={handleChangePage} color="primary" variant="outlined" shape="rounded" size="large" showFirstButton showLastButton />
+          <FormHelperText>{`Showing ${firstItem} to ${lastItem} of ${total}`}</FormHelperText>
         </Grid>
       </Grid>
-      {
-        loading
-          ? <Spinner />
-          : (
-            <Grid container justifyContent="center">
-              {
-                items.map(
-                  (item) => (
-                    <Thumbnail key={item.id} profile={item} />
-                  ),
-                )
-              }
-            </Grid>
+      <Grid container justifyContent="center">
+        {
+          items.map(
+            (item) => (
+              <Thumbnail key={item.id} profile={item} />
+            ),
           )
-      }
+        }
+      </Grid>
     </Box>
   );
 }

@@ -29,7 +29,7 @@ function Profile({ profile, dispatch }) {
           <CardHeader
             title="Description"
           />
-          <CardContent sx={{ minHeight: '350px' }}>
+          <CardContent sx={{ minHeight: '352px' }}>
             <Typography component="div" variant="subtitle1">
               {description}
             </Typography>

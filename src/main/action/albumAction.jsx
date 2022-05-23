@@ -22,11 +22,11 @@ export function getItemsSuccess(payload) {
   };
 }
 
-export const getItems = (offset, limit) => (
+export const getItems = (offset, limit, search) => (
   (dispatch) => {
     dispatch(getItemsPending());
     return axios.get('/characters', {
-      params: buildParams(offset, limit),
+      params: buildParams(offset, limit, search),
     })
       .then((response) => {
         dispatch(getItemsSuccess(response.data));
