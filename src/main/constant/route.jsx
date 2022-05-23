@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dashboard, People } from '@mui/icons-material';
 import Album from '../common/Album';
+import Profile from '../common/Profile';
 
 export const navs = [
   {
@@ -14,5 +15,5 @@ export const navs = [
 export const routes = [
   { key: 'dashboard', link: '/', component: (<div>TODO</div>) },
   { key: 'characters', link: '/characters', component: (<Album />) },
-  { key: 'character', link: '/characters/:id', component: (<div>TODO</div>) },
+  { key: 'character', link: '/characters/:id', component: (<Profile />) },
 ];

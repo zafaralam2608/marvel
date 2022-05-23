@@ -19,7 +19,6 @@ function Thumbnail({ profile }) {
         sx={{ height: '250px', width: '250px' }}
         component="img"
         src={`${thumbnail.path}/standard_large.${thumbnail.extension}`}
-        onError={(e) => { e.target.src = '../images/photo'; }}
       />
     </Card>
   );
