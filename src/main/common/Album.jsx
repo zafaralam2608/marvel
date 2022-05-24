@@ -30,16 +30,12 @@ function Album({ album, dispatch }) {
 
   const totalPages = Math.ceil(total / itemsPerPage);
   const offset = (page - 1) * itemsPerPage;
-  const firstItem = itemsPerPage * (page - 1) + 1;
+  const firstItem = (total) ? itemsPerPage * (page - 1) + 1 : 0;
   const lastItem = (itemsPerPage * page < total) ? itemsPerPage * page : total;
 
   useEffect(() => {
     dispatch(getItems(offset, itemsPerPage, search));
   }, [offset, itemsPerPage, search]);
-
-  if (loading) {
-    return (<Spinner />);
-  }
 
   return (
     <Box>
@@ -64,18 +60,24 @@ function Album({ album, dispatch }) {
         </Grid>
         <Grid item>
           <Pagination count={totalPages} page={page} onChange={handleChangePage} color="primary" variant="outlined" shape="rounded" size="large" showFirstButton showLastButton />
-          <FormHelperText>{`Showing ${firstItem} to ${lastItem} of ${total}`}</FormHelperText>
+          <FormHelperText>{`Showing ${firstItem} to ${lastItem} of ${total} items`}</FormHelperText>
         </Grid>
       </Grid>
-      <Grid container justifyContent="center">
-        {
-          items.map(
-            (item) => (
-              <Thumbnail key={item.id} profile={item} />
-            ),
+      {
+        loading
+          ? (<Spinner />)
+          : (
+            <Grid container justifyContent="center">
+              {
+                items.map(
+                  (item) => (
+                    <Thumbnail key={item.id} profile={item} />
+                  ),
+                )
+              }
+            </Grid>
           )
-        }
-      </Grid>
+      }
     </Box>
   );
 }
