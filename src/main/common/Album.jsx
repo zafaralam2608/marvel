@@ -8,11 +8,11 @@ import Spinner from './Spinner';
 import Thumbnail from './Thumbnail';
 import { getItems } from '../action/albumAction';
 
-function Album({ album, dispatch }) {
+function Album({ comp, album, dispatch }) {
   const { items, total, loading } = album;
 
   const [page, setPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [size, setSize] = useState(20);
   const [search, setSearch] = useState('');
 
   const handleChangePage = (event, newPage) => {
@@ -20,7 +20,7 @@ function Album({ album, dispatch }) {
   };
 
   const handleChangeItemsPerPage = (event) => {
-    setItemsPerPage(parseInt(event.target.value, 10));
+    setSize(parseInt(event.target.value, 10));
     setPage(1);
   };
 
@@ -28,14 +28,13 @@ function Album({ album, dispatch }) {
     setSearch(event.target.value);
   };
 
-  const totalPages = Math.ceil(total / itemsPerPage);
-  const offset = (page - 1) * itemsPerPage;
-  const firstItem = (total) ? itemsPerPage * (page - 1) + 1 : 0;
-  const lastItem = (itemsPerPage * page < total) ? itemsPerPage * page : total;
+  const totalPages = Math.ceil(total / size);
+  const firstItem = (total) ? size * (page - 1) + 1 : 0;
+  const lastItem = (size * page < total) ? size * page : total;
 
   useEffect(() => {
-    dispatch(getItems(offset, itemsPerPage, search));
-  }, [offset, itemsPerPage, search]);
+    dispatch(getItems(comp, page, size, search));
+  }, [page, size, search]);
 
   return (
     <Box>
@@ -46,7 +45,7 @@ function Album({ album, dispatch }) {
         <Grid item>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
-              value={itemsPerPage}
+              value={size}
               onChange={handleChangeItemsPerPage}
               size="small"
             >
@@ -83,13 +82,14 @@ function Album({ album, dispatch }) {
 }
 
 Album.propTypes = {
+  comp: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   album: PropTypes.exact({
     loading: PropTypes.bool,
     total: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
       alias: PropTypes.string,
     })),
   }).isRequired,

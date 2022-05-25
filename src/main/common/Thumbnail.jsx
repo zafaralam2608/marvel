@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types';
 
 function Thumbnail({ profile }) {
-  const { id, name, thumbnail } = profile;
+  const { id, title, thumbnail } = profile;
 
   return (
     <Card sx={{
@@ -13,7 +13,7 @@ function Thumbnail({ profile }) {
     }}
     >
       <CardHeader
-        title={<a href={`/characters/${id}`} style={{ textDecoration: 'none' }} title={name}>{ name.slice(0, 16)}</a>}
+        title={<a href={`/characters/${id}`} style={{ textDecoration: 'none' }} title={title}>{ title.slice(0, 16)}</a>}
       />
       <CardMedia
         sx={{ height: '250px', width: '250px' }}
@@ -27,7 +27,7 @@ function Thumbnail({ profile }) {
 Thumbnail.propTypes = {
   profile: PropTypes.exact({
     id: PropTypes.number,
-    name: PropTypes.string,
+    title: PropTypes.string,
     thumbnail: PropTypes.exact({
       path: PropTypes.string,
       extension: PropTypes.string,

@@ -5,7 +5,7 @@ import {
   Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import { getProfile } from '../action/profileActions';
+import { getProfile } from '../action/profileAction';
 import Spinner from './Spinner';
 
 function Profile({ profile, dispatch }) {

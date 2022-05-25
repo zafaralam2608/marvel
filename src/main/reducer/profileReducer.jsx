@@ -1,4 +1,4 @@
-import { loadProfile } from '../constant/type';
+import { loadProfile } from '../constant/action';
 
 const initialState = {
   loading: false,

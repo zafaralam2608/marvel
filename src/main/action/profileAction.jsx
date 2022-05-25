@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loadProfile } from '../constant/type';
+import { loadProfile } from '../constant/action';
 import { buildParams } from '../util/apiUtility';
 
 export function getProfilePending() {
