@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Dashboard, Event, LibraryBooks, Man, MenuBook, Movie, People,
+  Dashboard, Event, LibraryBooks, Man, MenuBook, People,
 } from '@mui/icons-material';
 import type from './type';
 import Album from '../common/Album';
@@ -25,9 +25,6 @@ export const navs = [
   {
     key: 'series', link: '/series', label: 'Series', icon: (<LibraryBooks />),
   },
-  {
-    key: 'stories', link: '/stories', label: 'Stories', icon: (<Movie />),
-  },
 ];
 
 export const routes = [
@@ -42,6 +39,4 @@ export const routes = [
   { key: 'event', link: '/events/:id', component: (<Profile />) },
   { key: 'serieses', link: '/series', component: (<Album comp={type.SERIES} />) },
   { key: 'series', link: '/series/:id', component: (<Profile />) },
-  { key: 'stories', link: '/stories', component: (<Album comp={type.STORIES} />) },
-  { key: 'story', link: '/stories/:id', component: (<Profile />) },
 ];

@@ -26,7 +26,7 @@ export function getItemsSuccess(payload, comp) {
 export const getItems = (comp, offset, limit, search) => (
   (dispatch) => {
     dispatch(getItemsPending());
-    return axios.get(comp, {
+    return axios.get(comp.link, {
       params: buildAlbumParams(comp, offset, limit, search),
     })
       .then((response) => {

@@ -1,5 +1,4 @@
 import { loadAlbum } from '../constant/action';
-import type from '../constant/type';
 
 const initialState = {
   items: [],
@@ -26,29 +25,7 @@ const albumReducer = (state = initialState, action) => {
       const list = [];
       action.payload.data.results.forEach((profile) => {
         const { id, thumbnail } = profile;
-        if (!thumbnail) {
-          console.log(id);
-        }
-        let title = '';
-        switch (action.comp) {
-          case type.CHARACTERS: {
-            title = profile.name;
-            break;
-          }
-          case type.CREATORS: {
-            title = profile.fullName;
-            break;
-          }
-          case type.COMICS:
-          case type.EVENTS:
-          case type.SERIES:
-          case type.STORIES: {
-            title = profile.title;
-            break;
-          }
-          default:
-            break;
-        }
+        const title = profile[action.comp.t];
         list.push({ id, title, thumbnail });
       });
       finalState.items = list;

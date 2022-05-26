@@ -1,5 +1,4 @@
 import cryptoJs from 'crypto-js';
-import type from '../constant/type';
 
 export const buildParams = () => {
   const timeStamp = new Date().getTime();
@@ -14,18 +13,7 @@ export const buildAlbumParams = (comp, page, size, search) => {
   params.offset = (page - 1) * size;
   params.limit = size;
   if (search) {
-    switch (comp) {
-      case type.CHARACTERS: {
-        params.nameStartsWith = search;
-        break;
-      }
-      case type.COMICS: {
-        params.titleStartsWith = search;
-        break;
-      }
-      default:
-        break;
-    }
+    params[comp.q] = search;
   }
   return params;
 };

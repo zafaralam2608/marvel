@@ -82,7 +82,11 @@ function Album({ comp, album, dispatch }) {
 }
 
 Album.propTypes = {
-  comp: PropTypes.string.isRequired,
+  comp: PropTypes.exact({
+    link: PropTypes.string.isRequired,
+    q: PropTypes.string.isRequired,
+    t: PropTypes.string.isRequired,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
   album: PropTypes.exact({
     loading: PropTypes.bool,
