@@ -8,18 +8,18 @@ import PropTypes from 'prop-types';
 import { getProfile } from '../action/profileAction';
 import Spinner from './Spinner';
 
-function Profile({ profile, dispatch }) {
+function Profile({ profile, dispatch, setHeading }) {
   const { id } = useParams();
-
-  useEffect(() => {
-    dispatch(getProfile(id));
-  }, []);
 
   const {
     loading, name, description, thumbnail,
   } = profile;
 
-  console.log(name);
+  useEffect(() => {
+    setHeading(name);
+    dispatch(getProfile(id));
+  }, [id, name]);
+
   if (loading) { return <Spinner />; }
 
   return (
@@ -75,6 +75,7 @@ Profile.propTypes = {
     description: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
   }).isRequired,
+  setHeading: PropTypes.func.isRequired,
 };
 
 export default connect((store) => ({

@@ -8,7 +8,9 @@ import Spinner from './Spinner';
 import Thumbnail from './Thumbnail';
 import { getItems } from '../action/albumAction';
 
-function Album({ comp, album, dispatch }) {
+function Album({
+  comp, album, dispatch, setHeading,
+}) {
   const { items, total, loading } = album;
 
   const [page, setPage] = useState(1);
@@ -33,6 +35,7 @@ function Album({ comp, album, dispatch }) {
   const lastItem = (size * page < total) ? size * page : total;
 
   useEffect(() => {
+    setHeading(comp.label);
     dispatch(getItems(comp, page, size, search));
   }, [page, size, search]);
 
@@ -83,6 +86,7 @@ function Album({ comp, album, dispatch }) {
 
 Album.propTypes = {
   comp: PropTypes.exact({
+    label: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     q: PropTypes.string.isRequired,
     t: PropTypes.string.isRequired,
@@ -97,6 +101,7 @@ Album.propTypes = {
       alias: PropTypes.string,
     })),
   }).isRequired,
+  setHeading: PropTypes.func.isRequired,
 };
 
 export default connect((store) => ({

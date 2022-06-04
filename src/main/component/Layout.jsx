@@ -7,6 +7,7 @@ import Content from './Content';
 
 function Layout() {
   const [open, setOpen] = useState(false);
+  const [heading, setHeading] = useState('');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -22,13 +23,14 @@ function Layout() {
       <Header
         handleDrawerOpen={handleDrawerOpen}
         open={open}
+        heading={heading}
       />
       <BrowserRouter>
         <Sidebar
           handleDrawerClose={handleDrawerClose}
           open={open}
         />
-        <Content />
+        <Content setHeading={setHeading} />
       </BrowserRouter>
     </Box>
   );
