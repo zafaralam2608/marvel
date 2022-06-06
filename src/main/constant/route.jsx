@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Dashboard, Event, LibraryBooks, Man, MenuBook, People,
 } from '@mui/icons-material';
+import type from './type';
 
 export const navs = [
   {
@@ -25,4 +26,7 @@ export const navs = [
 ];
 
 export const routes = [
+  {
+    parent: 'characters', child: [type[1], type[2], type[3], type[4]],
+  },
 ];

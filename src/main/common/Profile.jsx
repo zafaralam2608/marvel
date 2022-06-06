@@ -36,16 +36,16 @@ function Profile({ profile, dispatch, setHeading }) {
           </CardContent>
           <CardActions>
             <ButtonGroup variant="contained" fullWidth>
-              <Button href={`/characters/${id}`}>
+              <Button href={`/characters/${id}/comics`}>
                 Comics
               </Button>
-              <Button href={`/characters/${id}`}>
+              <Button href={`/characters/${id}/series`}>
                 Series
               </Button>
-              <Button href={`/characters/${id}`}>
+              <Button href={`/characters/${id}/stories`}>
                 Stories
               </Button>
-              <Button href={`/characters/${id}`}>
+              <Button href={`/characters/${id}/events`}>
                 Events
               </Button>
             </ButtonGroup>

@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 
-function Thumbnail({ profile }) {
+function Thumbnail({ profile, path }) {
   const { id, title, thumbnail } = profile;
 
   return (
@@ -13,7 +13,7 @@ function Thumbnail({ profile }) {
     }}
     >
       <CardHeader
-        title={<a href={`/characters/${id}`} style={{ textDecoration: 'none' }} title={title}>{ title.slice(0, 16)}</a>}
+        title={<a href={`/${path}/${id}`} style={{ textDecoration: 'none' }} title={title}>{ title.slice(0, 14)}</a>}
       />
       <CardMedia
         sx={{ height: '250px', width: '250px' }}
@@ -33,6 +33,7 @@ Thumbnail.propTypes = {
       extension: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 export default Thumbnail;

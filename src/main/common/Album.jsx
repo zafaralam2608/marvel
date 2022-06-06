@@ -73,7 +73,7 @@ function Album({
               {
                 items.map(
                   (item) => (
-                    <Thumbnail key={item.id} profile={item} />
+                    <Thumbnail key={item.id} profile={item} path={comp.link} />
                   ),
                 )
               }
