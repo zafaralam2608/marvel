@@ -86,8 +86,9 @@ function Album({
 
 Album.propTypes = {
   comp: PropTypes.exact({
-    label: PropTypes.string.isRequired,
+    key: PropTypes.number.isRequired,
     link: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     q: PropTypes.string.isRequired,
     t: PropTypes.string.isRequired,
   }).isRequired,

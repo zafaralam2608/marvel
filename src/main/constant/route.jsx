@@ -1,32 +1,58 @@
 import React from 'react';
 import {
-  Dashboard, Event, LibraryBooks, Man, MenuBook, People,
+  Event, LibraryBooks, Man, MenuBook, People,
 } from '@mui/icons-material';
-import type from './type';
 
 export const navs = [
   {
-    key: 'dashboard', link: '/', label: 'Dashboard', icon: (<Dashboard />),
+    key: 0, link: '/comics', label: 'Comics', icon: (<MenuBook />),
   },
   {
-    key: 'characters', link: '/characters', label: 'Characters', icon: (<People />),
+    key: 1, link: '/characters', label: 'Characters', icon: (<People />),
   },
   {
-    key: 'comics', link: '/comics', label: 'Comics', icon: (<MenuBook />),
+    key: 2, link: '/creators', label: 'Creators', icon: (<Man />),
   },
   {
-    key: 'creators', link: '/creators', label: 'Creators', icon: (<Man />),
+    key: 3, link: '/events', label: 'Events', icon: (<Event />),
   },
   {
-    key: 'events', link: '/events', label: 'Events', icon: (<Event />),
-  },
-  {
-    key: 'series', link: '/series', label: 'Series', icon: (<LibraryBooks />),
+    key: 4, link: '/series', label: 'Series', icon: (<LibraryBooks />),
   },
 ];
 
-export const routes = [
+export const root = [
   {
-    parent: 'characters', child: [type[1], type[2], type[3], type[4]],
+    key: 0, link: '/comics', label: 'Comics', q: 'titleStartsWith', t: 'title',
+  },
+  {
+    key: 1, link: '/characters', label: 'Characters', q: 'nameStartsWith', t: 'name',
+  },
+  {
+    key: 2, link: '/creators', label: 'Creators', q: 'nameStartsWith', t: 'fullName',
+  },
+  {
+    key: 3, link: '/events', label: 'Events', q: 'nameStartsWith', t: 'title',
+  },
+  {
+    key: 4, link: '/series', label: 'Series', q: 'titleStartsWith', t: 'title',
+  },
+];
+
+export const derived = [
+  {
+    key: 0, link: '/comics', child: [root[1], root[2], root[3]],
+  },
+  {
+    key: 1, link: '/characters', child: [root[0], root[3], root[4]],
+  },
+  {
+    key: 2, link: '/creators', child: [root[0], root[3], root[4]],
+  },
+  {
+    key: 3, link: '/events', child: [root[0], root[1], root[2], root[4]],
+  },
+  {
+    key: 4, link: '/series', child: [root[0], root[1], root[2], root[3]],
   },
 ];
