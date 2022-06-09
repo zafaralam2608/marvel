@@ -35,9 +35,13 @@ function Content({ setHeading }) {
             )
           }
           {
-            root.map(
+            derived.map(
               (item) => (
-                <Route key={item.link.slice(1)} path={`${item.link}/:id`} element={<Profile setHeading={setHeading} />} />
+                <Route
+                  key={item.link.slice(1)}
+                  path={`${item.link}/:id`}
+                  element={<Profile comp={item} setHeading={setHeading} />}
+                />
               ),
             )
           }

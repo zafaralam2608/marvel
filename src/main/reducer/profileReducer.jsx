@@ -2,7 +2,7 @@ import { loadProfile } from '../constant/action';
 
 const initialState = {
   loading: false,
-  name: '',
+  title: '',
   description: '',
   thumbnail: '',
 };
@@ -23,8 +23,8 @@ const profileReducer = (state = initialState, action) => {
       finalState.loading = false;
       if (action.payload.data.total === 1) {
         const result = action.payload.data.results[0];
-        finalState.name = result.name;
-        finalState.description = result.description;
+        finalState.title = result[action.comp.t];
+        finalState.description = result.description || '';
         finalState.thumbnail = `${result.thumbnail.path}/portrait_uncanny.${result.thumbnail.extension}`;
       }
       break;

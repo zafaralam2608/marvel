@@ -8,17 +8,19 @@ import PropTypes from 'prop-types';
 import { getProfile } from '../action/profileAction';
 import Spinner from './Spinner';
 
-function Profile({ profile, dispatch, setHeading }) {
+function Profile({
+  comp, profile, dispatch, setHeading,
+}) {
   const { id } = useParams();
 
   const {
-    loading, name, description, thumbnail,
+    loading, title, description, thumbnail,
   } = profile;
 
   useEffect(() => {
-    setHeading(name);
-    dispatch(getProfile(id));
-  }, [id, name]);
+    setHeading(title);
+    dispatch(getProfile(comp, id));
+  }, [id, title]);
 
   if (loading) { return <Spinner />; }
 
@@ -36,18 +38,15 @@ function Profile({ profile, dispatch, setHeading }) {
           </CardContent>
           <CardActions>
             <ButtonGroup variant="contained" fullWidth>
-              <Button href={`/characters/${id}/comics`}>
-                Comics
-              </Button>
-              <Button href={`/characters/${id}/series`}>
-                Series
-              </Button>
-              <Button href={`/characters/${id}/stories`}>
-                Stories
-              </Button>
-              <Button href={`/characters/${id}/events`}>
-                Events
-              </Button>
+              {
+                comp.child.map(
+                  (item) => (
+                    <Button key={item.link.slice(1)} href={`${comp.link}/${id}${item.link}`}>
+                      {item.label}
+                    </Button>
+                  ),
+                )
+              }
             </ButtonGroup>
           </CardActions>
         </Card>
@@ -69,10 +68,20 @@ function Profile({ profile, dispatch, setHeading }) {
 }
 
 Profile.propTypes = {
+  comp: PropTypes.exact({
+    link: PropTypes.string.isRequired,
+    t: PropTypes.string.isRequired,
+    child: PropTypes.arrayOf(PropTypes.shape({
+      link: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      q: PropTypes.string.isRequired,
+      t: PropTypes.string.isRequired,
+    })).isRequired,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
   profile: PropTypes.exact({
     loading: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
   }).isRequired,

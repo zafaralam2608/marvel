@@ -41,19 +41,19 @@ export const root = [
 
 export const derived = [
   {
-    link: '/comics', child: [root[1], root[2], root[3]],
+    link: '/comics', t: 'title', child: [root[1], root[2], root[3]],
   },
   {
-    link: '/characters', child: [root[0], root[3], root[4]],
+    link: '/characters', t: 'name', child: [root[0], root[3], root[4]],
   },
   {
-    link: '/creators', child: [root[0], root[3], root[4]],
+    link: '/creators', t: 'fullName', child: [root[0], root[3], root[4]],
   },
   {
-    link: '/events', child: [root[0], root[1], root[2], root[4]],
+    link: '/events', t: 'title', child: [root[0], root[1], root[2], root[4]],
   },
   {
-    link: '/series', child: [root[0], root[1], root[2], root[3]],
+    link: '/series', t: 'title', child: [root[0], root[1], root[2], root[3]],
   },
 ];
 
