@@ -44,6 +44,7 @@ function Error({ comp, setHeading }) {
 
 Error.propTypes = {
   comp: PropTypes.exact({
+    link: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,

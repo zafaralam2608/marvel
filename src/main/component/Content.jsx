@@ -27,7 +27,7 @@ function Content({ setHeading }) {
             root.map(
               (item) => (
                 <Route
-                  key={item.key}
+                  key={item.link.slice(1)}
                   path={item.link}
                   element={<Album comp={item} setHeading={setHeading} />}
                 />
@@ -37,7 +37,7 @@ function Content({ setHeading }) {
           {
             root.map(
               (item) => (
-                <Route key={item.key} path={`${item.link}/:id`} element={<Profile setHeading={setHeading} />} />
+                <Route key={item.link.slice(1)} path={`${item.link}/:id`} element={<Profile setHeading={setHeading} />} />
               ),
             )
           }
@@ -47,7 +47,7 @@ function Content({ setHeading }) {
                 der.child.map(
                   (item) => (
                     <Route
-                      key={item.link}
+                      key={item.link.slice(1)}
                       path={`${der.link}/:id${item.link}`}
                       element={<Album comp={item} setHeading={setHeading} />}
                     />
@@ -60,7 +60,7 @@ function Content({ setHeading }) {
             error.map(
               (item) => (
                 <Route
-                  key={item.key}
+                  key={item.link.slice(1)}
                   path={item.link}
                   element={<Error comp={item} setHeading={setHeading} />}
                 />
