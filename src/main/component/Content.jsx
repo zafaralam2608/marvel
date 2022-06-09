@@ -2,9 +2,12 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Box, Container, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
-import { derived, navs, root } from '../constant/route';
+import {
+  derived, error, navs, root,
+} from '../constant/route';
 import Album from '../common/Album';
 import Profile from '../common/Profile';
+import Error from '../common/Error';
 
 function Content({ setHeading }) {
   return (
@@ -53,7 +56,18 @@ function Content({ setHeading }) {
               ),
             )
           }
-          <Route path="*" element={<div>TODO Not Found</div>} />
+          {
+            error.map(
+              (item) => (
+                <Route
+                  key={item.key}
+                  path={item.link}
+                  element={<Error comp={item} setHeading={setHeading} />}
+                />
+              ),
+            )
+          }
+          <Route path="*" element={<Navigate to={error[0].link} replace setHeading={setHeading} />} />
         </Routes>
       </Container>
     </Box>

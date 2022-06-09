@@ -60,6 +60,7 @@ function Profile({ profile, dispatch, setHeading }) {
             }}
             component="img"
             src={thumbnail}
+            onError={(e) => { e.target.src = '../assets/imagenotfound.jpg'; }}
           />
         </Card>
       </Grid>

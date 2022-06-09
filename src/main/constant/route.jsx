@@ -56,3 +56,12 @@ export const derived = [
     key: 4, link: '/series', child: [root[0], root[1], root[2], root[3]],
   },
 ];
+
+export const error = [
+  {
+    key: 0, link: '404', title: 'Page Not Found', message: 'The page you are trying to access is not available.', image: '/assets/404.jpg',
+  },
+  {
+    key: 1, link: '500', title: 'Internal Server Error', message: 'Encountered an error while trying to access request', image: '/assets/500.gif',
+  },
+];

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import {
   Box, FormControl, FormHelperText, Grid, MenuItem, Pagination, Select, TextField,
 } from '@mui/material';
@@ -11,8 +12,9 @@ import { getItems } from '../action/albumAction';
 function Album({
   comp, album, dispatch, setHeading,
 }) {
-  const { items, total, loading } = album;
-
+  const {
+    error, items, total, loading,
+  } = album;
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(20);
   const [search, setSearch] = useState('');
@@ -38,6 +40,12 @@ function Album({
     setHeading(comp.label);
     dispatch(getItems(comp, page, size, search));
   }, [page, size, search]);
+
+  if (error.size > 0) {
+    return (
+      <Navigate to="/500" replace />
+    );
+  }
 
   return (
     <Box>
@@ -101,6 +109,10 @@ Album.propTypes = {
       title: PropTypes.string.isRequired,
       alias: PropTypes.string,
     })),
+    error: PropTypes.arrayOf(PropTypes.shape({
+      code: PropTypes.number.isRequired,
+      message: PropTypes.string.isRequired,
+    })).isRequired,
   }).isRequired,
   setHeading: PropTypes.func.isRequired,
 };
