@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography,
@@ -14,7 +14,7 @@ function Profile({
   const { id } = useParams();
 
   const {
-    loading, title, description, thumbnail,
+    loading, title, description, thumbnail, error,
   } = profile;
 
   useEffect(() => {
@@ -23,6 +23,12 @@ function Profile({
   }, [id, title]);
 
   if (loading) { return <Spinner />; }
+
+  if (error) {
+    return (
+      <Navigate to="/500" replace />
+    );
+  }
 
   return (
     <Grid container spacing={3} alignContent="center">
@@ -84,6 +90,7 @@ Profile.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
+    error: PropTypes.bool.isRequired,
   }).isRequired,
   setHeading: PropTypes.func.isRequired,
 };

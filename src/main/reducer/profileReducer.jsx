@@ -5,6 +5,7 @@ const initialState = {
   title: '',
   description: '',
   thumbnail: '',
+  error: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -13,14 +14,23 @@ const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case loadProfile.pending: {
       finalState.loading = true;
+      finalState.error = false;
+      finalState.title = '';
+      finalState.description = '';
+      finalState.thumbnail = '';
       break;
     }
     case loadProfile.failure: {
       finalState.loading = false;
+      finalState.title = '';
+      finalState.description = '';
+      finalState.thumbnail = '';
+      finalState.error = true;
       break;
     }
     case loadProfile.success: {
       finalState.loading = false;
+      finalState.error = false;
       if (action.payload.data.total === 1) {
         const result = action.payload.data.results[0];
         finalState.title = result[action.comp.t];

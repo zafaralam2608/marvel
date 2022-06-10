@@ -4,7 +4,7 @@ const initialState = {
   items: [],
   total: 0,
   loading: false,
-  error: [],
+  error: false,
 };
 
 const albumReducer = (state = initialState, action) => {
@@ -15,22 +15,19 @@ const albumReducer = (state = initialState, action) => {
       finalState.loading = true;
       finalState.items = [];
       finalState.total = 0;
-      finalState.error = [];
+      finalState.error = false;
       break;
     }
     case loadAlbum.failure: {
       finalState.loading = false;
       finalState.items = [];
       finalState.total = 0;
-      const list = [];
-      const { code, message } = action.payload;
-      list.push({ code, message });
-      finalState.error = list;
+      finalState.error = true;
       break;
     }
     case loadAlbum.success: {
       finalState.loading = false;
-      finalState.error = [];
+      finalState.error = false;
       finalState.total = action.payload.data.total;
       const list = [];
       action.payload.data.results.forEach((profile) => {

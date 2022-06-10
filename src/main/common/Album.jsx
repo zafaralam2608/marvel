@@ -41,7 +41,7 @@ function Album({
     dispatch(getItems(comp, page, size, search));
   }, [page, size, search]);
 
-  if (error.size > 0) {
+  if (error) {
     return (
       <Navigate to="/500" replace />
     );
@@ -108,10 +108,7 @@ Album.propTypes = {
       title: PropTypes.string.isRequired,
       alias: PropTypes.string,
     })),
-    error: PropTypes.arrayOf(PropTypes.shape({
-      code: PropTypes.number.isRequired,
-      message: PropTypes.string.isRequired,
-    })).isRequired,
+    error: PropTypes.bool.isRequired,
   }).isRequired,
   setHeading: PropTypes.func.isRequired,
 };
