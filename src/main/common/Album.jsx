@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import {
   Box, FormControl, FormHelperText, Grid, MenuItem, Pagination, Select, TextField,
 } from '@mui/material';
@@ -10,8 +10,9 @@ import Thumbnail from './Thumbnail';
 import { getItems } from '../action/albumAction';
 
 function Album({
-  comp, album, dispatch, setHeading,
+  comp, album, dispatch, setHeading, parent,
 }) {
+  const { id } = useParams();
   const {
     error, items, total, loading,
   } = album;
@@ -38,7 +39,7 @@ function Album({
 
   useEffect(() => {
     setHeading(comp.label);
-    dispatch(getItems(comp, page, size, search));
+    dispatch(getItems(comp, page, size, search, id ? `/${id}` : '', parent));
   }, [page, size, search]);
 
   if (error) {
@@ -111,6 +112,7 @@ Album.propTypes = {
     error: PropTypes.bool.isRequired,
   }).isRequired,
   setHeading: PropTypes.func.isRequired,
+  parent: PropTypes.string.isRequired,
 };
 
 export default connect((store) => ({

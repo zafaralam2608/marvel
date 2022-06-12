@@ -29,7 +29,7 @@ function Content({ setHeading }) {
                 <Route
                   key={item.link.slice(1)}
                   path={item.link}
-                  element={<Album comp={item} setHeading={setHeading} />}
+                  element={<Album comp={item} parent="" setHeading={setHeading} />}
                 />
               ),
             )
@@ -52,8 +52,8 @@ function Content({ setHeading }) {
                   (item) => (
                     <Route
                       key={item.link.slice(1)}
-                      path={`${der.link}/:id${item.link}`}
-                      element={<Album comp={item} setHeading={setHeading} />}
+                      path={`${der.link}/:id/${item.link}`}
+                      element={<Album comp={item} parent={`/${der.link}`} setHeading={setHeading} />}
                     />
                   ),
                 )

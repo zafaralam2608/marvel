@@ -23,45 +23,47 @@ export const navs = [
 
 export const root = [
   {
-    link: '/comics', label: 'Comics', q: 'titleStartsWith', t: 'title',
+    link: 'comics', label: 'Comics', q: 'titleStartsWith', t: 'title',
   },
   {
-    link: '/characters', label: 'Characters', q: 'nameStartsWith', t: 'name',
+    link: 'characters', label: 'Characters', q: 'nameStartsWith', t: 'name',
   },
   {
-    link: '/creators', label: 'Creators', q: 'nameStartsWith', t: 'fullName',
+    link: 'creators', label: 'Creators', q: 'nameStartsWith', t: 'fullName',
   },
   {
-    link: '/events', label: 'Events', q: 'nameStartsWith', t: 'title',
+    link: 'events', label: 'Events', q: 'nameStartsWith', t: 'title',
   },
   {
-    link: '/series', label: 'Series', q: 'titleStartsWith', t: 'title',
+    link: 'series', label: 'Series', q: 'titleStartsWith', t: 'title',
   },
 ];
 
 export const derived = [
   {
-    link: '/comics', t: 'title', child: [root[1], root[2], root[3]],
+    link: 'comics', t: 'title', child: [root[1], root[2], root[3]],
   },
   {
-    link: '/characters', t: 'name', child: [root[0], root[3], root[4]],
+    link: 'characters', t: 'name', child: [root[0], root[3], root[4]],
   },
   {
-    link: '/creators', t: 'fullName', child: [root[0], root[3], root[4]],
+    link: 'creators', t: 'fullName', child: [root[0], root[3], root[4]],
   },
   {
-    link: '/events', t: 'title', child: [root[0], root[1], root[2], root[4]],
+    link: 'events', t: 'title', child: [root[0], root[1], root[2], root[4]],
   },
   {
-    link: '/series', t: 'title', child: [root[0], root[1], root[2], root[3]],
+    link: 'series', t: 'title', child: [root[0], root[1], root[2], root[3]],
   },
 ];
 
 export const error = [
   {
-    link: '/404', title: 'Page Not Found', message: 'The page you are trying to access is not available.', image: '/assets/404.jpg',
+    link: '404', title: 'Page Not Found', message: 'The page you are trying to access is not available.', image: '/assets/404.jpg',
   },
   {
-    link: '/500', title: 'Internal Server Error', message: 'Encountered an error while trying to access request', image: '/assets/500.gif',
+    link: '500', title: 'Internal Server Error', message: 'Encountered an error while trying to access request', image: '/assets/500.gif',
   },
 ];
+
+export const apiUrl = 'https://gateway.marvel.com/v1/public';
