@@ -29,7 +29,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
 
-    - name: Deploy
+    -   name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: prod
