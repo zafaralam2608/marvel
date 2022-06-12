@@ -28,7 +28,7 @@ function Sidebar({ open, handleDrawerClose }) {
         {
           navs.map(
             (nav) => (
-              <Link key={nav.label} href={`marvel/${nav.link}`} style={{ textDecoration: 'none' }}>
+              <Link key={nav.label} href={nav.link} style={{ textDecoration: 'none' }}>
                 <ListItem button>
                   <ListItemIcon>
                     {nav.icon}
