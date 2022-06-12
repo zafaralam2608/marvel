@@ -25,7 +25,7 @@ function Layout() {
         open={open}
         heading={heading}
       />
-      <BrowserRouter>
+      <BrowserRouter basename="marvel">
         <Sidebar
           handleDrawerClose={handleDrawerClose}
           open={open}
