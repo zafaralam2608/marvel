@@ -5,19 +5,19 @@ import {
 
 export const navs = [
   {
-    link: '/comics', label: 'Comics', icon: (<MenuBook />),
+    link: 'comics', label: 'Comics', icon: (<MenuBook />),
   },
   {
-    link: '/characters', label: 'Characters', icon: (<People />),
+    link: 'characters', label: 'Characters', icon: (<People />),
   },
   {
-    link: '/creators', label: 'Creators', icon: (<Man />),
+    link: 'creators', label: 'Creators', icon: (<Man />),
   },
   {
-    link: '/events', label: 'Events', icon: (<Event />),
+    link: 'events', label: 'Events', icon: (<Event />),
   },
   {
-    link: '/series', label: 'Series', icon: (<LibraryBooks />),
+    link: 'series', label: 'Series', icon: (<LibraryBooks />),
   },
 ];
 
