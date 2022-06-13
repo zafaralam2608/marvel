@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/marvel/static/js/main.00fa9202.js",
+    "main.js": "/marvel/static/js/main.b43a98c7.js",
     "index.html": "/marvel/index.html",
-    "main.00fa9202.js.map": "/marvel/static/js/main.00fa9202.js.map"
+    "main.b43a98c7.js.map": "/marvel/static/js/main.b43a98c7.js.map"
   },
   "entrypoints": [
-    "static/js/main.00fa9202.js"
+    "static/js/main.b43a98c7.js"
   ]
 }
