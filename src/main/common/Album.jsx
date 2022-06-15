@@ -24,7 +24,7 @@ function Album({
     setPage(newPage);
   };
 
-  const handleChangeItemsPerPage = (event) => {
+  const handleChangeSize = (event) => {
     setSize(parseInt(event.target.value, 10));
     setPage(1);
   };
@@ -58,7 +58,7 @@ function Album({
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
               value={size}
-              onChange={handleChangeItemsPerPage}
+              onChange={handleChangeSize}
               size="small"
             >
               <MenuItem value={10}>10</MenuItem>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, CardHeader, CardMedia,
+  Card, CardActionArea, CardHeader, CardMedia,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import imageNotFound from '../assets/imagenotfound.jpg';
@@ -13,15 +13,17 @@ function Thumbnail({ profile, path }) {
       height: '340px', width: '270px', margin: '10px', padding: '10px',
     }}
     >
-      <CardHeader
-        title={<a href={`#/${path}/${id}`} style={{ textDecoration: 'none' }} title={title}>{ title.slice(0, 14)}</a>}
-      />
-      <CardMedia
-        sx={{ height: '250px', width: '250px' }}
-        component="img"
-        src={`${thumbnail.path}/standard_medium.${thumbnail.extension}`}
-        onError={(e) => { e.target.src = imageNotFound; }}
-      />
+      <CardActionArea href={`#/${path}/${id}`}>
+        <CardHeader
+          title={title.slice(0, 14)}
+        />
+        <CardMedia
+          sx={{ height: '250px', width: '250px' }}
+          component="img"
+          src={`${thumbnail.path}/standard_medium.${thumbnail.extension}`}
+          onError={(e) => { e.target.src = imageNotFound; }}
+        />
+      </CardActionArea>
     </Card>
   );
 }
