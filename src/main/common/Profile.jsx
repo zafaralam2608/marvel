@@ -13,13 +13,13 @@ function Profile({
   comp, profile, dispatch, setHeading,
 }) {
   const { id } = useParams();
-
+  const { link, t, child } = comp;
   const {
     loading, title, description, thumbnail, error,
   } = profile;
 
   useEffect(() => {
-    dispatch(getProfile(comp, id));
+    dispatch(getProfile(`${link}/${id}`, t));
     setHeading(title);
   }, []);
 
@@ -46,7 +46,7 @@ function Profile({
           <CardActions>
             <ButtonGroup variant="contained" fullWidth>
               {
-                comp.child.map(
+                child.map(
                   (item) => (
                     <Button key={item.link.slice(1)} href={`#/${comp.link}/${id}/${item.link}`} iden={`/${id}`}>
                       {item.label}

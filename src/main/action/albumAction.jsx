@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { loadAlbum } from '../constant/action';
-import { buildAlbumParams } from '../util/apiUtility';
+import { API_URL, buildParams } from '../util/apiUtility';
 
 export function getItemsPending() {
   return {
@@ -15,22 +15,22 @@ export function getItemsFailure(payload) {
   };
 }
 
-export function getItemsSuccess(payload, comp) {
+export function getItemsSuccess(payload, t) {
   return {
     type: loadAlbum.success,
     payload,
-    comp,
+    t,
   };
 }
 
-export const getItems = (comp, offset, limit, search, id, parent) => (
+export const getItems = (apiLink, params, t) => (
   (dispatch) => {
     dispatch(getItemsPending());
-    return axios.get(`${parent}${id}/${comp.link}`, {
-      params: buildAlbumParams(comp, offset, limit, search),
+    return axios.get(`${API_URL}${apiLink}`, {
+      params: buildParams(params),
     })
       .then((response) => {
-        dispatch(getItemsSuccess(response.data, comp));
+        dispatch(getItemsSuccess(response.data, t));
       })
       .catch((err) => {
         dispatch(getItemsFailure(err));

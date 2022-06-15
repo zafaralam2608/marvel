@@ -32,7 +32,7 @@ const albumReducer = (state = initialState, action) => {
       const list = [];
       action.payload.data.results.forEach((profile) => {
         const { id, thumbnail } = profile;
-        const title = profile[action.comp.t];
+        const title = profile[action.t];
         list.push({ id, title, thumbnail });
       });
       finalState.items = list;

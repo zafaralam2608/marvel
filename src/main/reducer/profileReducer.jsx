@@ -33,7 +33,7 @@ const profileReducer = (state = initialState, action) => {
       finalState.error = false;
       if (action.payload.data.total === 1) {
         const result = action.payload.data.results[0];
-        finalState.title = result[action.comp.t];
+        finalState.title = result[action.t];
         finalState.description = result.description || '';
         finalState.thumbnail = `${result.thumbnail.path}/portrait_uncanny.${result.thumbnail.extension}`;
       }

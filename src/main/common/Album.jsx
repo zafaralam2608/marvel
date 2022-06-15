@@ -14,8 +14,12 @@ function Album({
 }) {
   const { id } = useParams();
   const {
+    link, label, q, t,
+  } = comp;
+  const {
     error, items, total, loading,
   } = album;
+
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState('');
@@ -38,8 +42,13 @@ function Album({
   const lastItem = (size * page < total) ? size * page : total;
 
   useEffect(() => {
-    setHeading(comp.label);
-    dispatch(getItems(comp, page, size, search, id ? `/${id}` : '', parent));
+    setHeading(label);
+    const params = { offset: (page - 1) * size, limit: size };
+    if (search) {
+      params[q] = search;
+    }
+    const apiLink = (parent && id) ? `${parent}/${id}/${link}` : link;
+    dispatch(getItems(apiLink, params, t));
   }, [parent, comp, page, size, search]);
 
   if (error) {

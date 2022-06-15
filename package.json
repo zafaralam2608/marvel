@@ -27,7 +27,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://gateway.marvel.com/v1/public/",
   "browserslist": {
     "production": [
       ">0.2%",
