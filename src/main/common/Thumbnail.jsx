@@ -3,6 +3,7 @@ import {
   Card, CardHeader, CardMedia,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import imageNotFound from '../assets/imagenotfound.jpg';
 
 function Thumbnail({ profile, path }) {
   const { id, title, thumbnail } = profile;
@@ -18,8 +19,8 @@ function Thumbnail({ profile, path }) {
       <CardMedia
         sx={{ height: '250px', width: '250px' }}
         component="img"
-        src={`${thumbnail.path}/standard_large.${thumbnail.extension}`}
-        onError={(e) => { e.target.src = '../assets/imagenotfound.jpg'; }}
+        src={`${thumbnail.path}/standard_medium.${thumbnail.extension}`}
+        onError={(e) => { e.target.src = imageNotFound; }}
       />
     </Card>
   );

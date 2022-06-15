@@ -17,7 +17,7 @@ function Album({
     error, items, total, loading,
   } = album;
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(20);
+  const [size, setSize] = useState(10);
   const [search, setSearch] = useState('');
 
   const handleChangePage = (event, newPage) => {

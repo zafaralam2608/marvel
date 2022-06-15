@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import { getProfile } from '../action/profileAction';
 import Spinner from './Spinner';
+import imageNotFound from '../assets/imagenotfound.jpg';
 
 function Profile({
   comp, profile, dispatch, setHeading,
@@ -65,7 +66,7 @@ function Profile({
             }}
             component="img"
             src={thumbnail}
-            onError={(e) => { e.target.src = '../assets/imagenotfound.jpg'; }}
+            onError={(e) => { e.target.src = imageNotFound; }}
           />
         </Card>
       </Grid>
