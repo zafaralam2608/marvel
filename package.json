@@ -2,7 +2,7 @@
   "name": "marvel",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zafaralam2608.github.io/marvel/",
+  "homepage": "https://zafaralam2608.github.io/marvel",
   "dependencies": {
     "@emotion/styled": "11.8.1",
     "@mui/icons-material": "^5.6.2",

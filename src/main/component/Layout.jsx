@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Box, CssBaseline } from '@mui/material';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -25,13 +25,13 @@ function Layout() {
         open={open}
         heading={heading}
       />
-      <BrowserRouter basename="https://zafaralam2608.github.io/marvel/">
+      <HashRouter>
         <Sidebar
           handleDrawerClose={handleDrawerClose}
           open={open}
         />
         <Content setHeading={setHeading} />
-      </BrowserRouter>
+      </HashRouter>
     </Box>
   );
 }
