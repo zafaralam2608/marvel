@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { ChevronLeft } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import Drawer from '../common/Drawer';
-import { navs } from '../constant/route';
+import navList from '../constant/nav';
 
 function Sidebar({ open, handleDrawerClose }) {
   return (
@@ -26,7 +26,7 @@ function Sidebar({ open, handleDrawerClose }) {
       <Divider />
       <List component="nav">
         {
-          navs.map(
+          navList.map(
             (nav) => (
               <Link key={nav.label} href={`#/${nav.link}`} style={{ textDecoration: 'none' }}>
                 <ListItem button>

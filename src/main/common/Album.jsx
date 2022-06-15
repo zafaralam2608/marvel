@@ -40,7 +40,7 @@ function Album({
   useEffect(() => {
     setHeading(comp.label);
     dispatch(getItems(comp, page, size, search, id ? `/${id}` : '', parent));
-  }, [comp, page, size, search]);
+  }, [parent, comp, page, size, search]);
 
   if (error) {
     return (

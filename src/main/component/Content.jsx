@@ -2,12 +2,13 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Box, Container, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
-import {
-  derived, error, navs, root,
-} from '../constant/route';
 import Album from '../common/Album';
 import Profile from '../common/Profile';
 import Error from '../common/Error';
+import navList from '../constant/nav';
+import albumList from '../constant/album';
+import profileList from '../constant/profile';
+import errorList from '../constant/error';
 
 function Content({ setHeading }) {
   return (
@@ -22,12 +23,12 @@ function Content({ setHeading }) {
       <Toolbar />
       <Container maxWidth="100%" sx={{ mt: 5, mb: 5 }}>
         <Routes>
-          <Route index element={<Navigate to={navs[0].link} replace />} />
+          <Route index element={<Navigate to={navList[0].link} replace />} />
           {
-            root.map(
+            albumList.map(
               (item) => (
                 <Route
-                  key={item.link.slice(1)}
+                  key={item.link}
                   path={item.link}
                   element={<Album comp={item} parent="" setHeading={setHeading} />}
                 />
@@ -35,10 +36,10 @@ function Content({ setHeading }) {
             )
           }
           {
-            derived.map(
+            profileList.map(
               (item) => (
                 <Route
-                  key={item.link.slice(1)}
+                  key={`${item.link}-id`}
                   path={`${item.link}/:id`}
                   element={<Profile comp={item} setHeading={setHeading} />}
                 />
@@ -46,12 +47,12 @@ function Content({ setHeading }) {
             )
           }
           {
-            derived.map(
+            profileList.map(
               (der) => (
                 der.child.map(
                   (item) => (
                     <Route
-                      key={item.link.slice(1)}
+                      key={`${der.link}-id-${item.link}`}
                       path={`${der.link}/:id/${item.link}`}
                       element={<Album comp={item} parent={`/${der.link}`} setHeading={setHeading} />}
                     />
@@ -61,7 +62,7 @@ function Content({ setHeading }) {
             )
           }
           {
-            error.map(
+            errorList.map(
               (item) => (
                 <Route
                   key={item.link.slice(1)}
@@ -71,7 +72,7 @@ function Content({ setHeading }) {
               ),
             )
           }
-          <Route path="*" element={<Navigate to={error[0].link} replace setHeading={setHeading} />} />
+          <Route path="*" element={<Navigate to={errorList[0].link} replace setHeading={setHeading} />} />
         </Routes>
       </Container>
     </Box>

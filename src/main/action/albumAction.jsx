@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { loadAlbum } from '../constant/action';
 import { buildAlbumParams } from '../util/apiUtility';
-import { apiUrl } from '../constant/route';
 
 export function getItemsPending() {
   return {
@@ -27,7 +26,7 @@ export function getItemsSuccess(payload, comp) {
 export const getItems = (comp, offset, limit, search, id, parent) => (
   (dispatch) => {
     dispatch(getItemsPending());
-    return axios.get(`${apiUrl}${parent}${id}/${comp.link}`, {
+    return axios.get(`${parent}${id}/${comp.link}`, {
       params: buildAlbumParams(comp, offset, limit, search),
     })
       .then((response) => {

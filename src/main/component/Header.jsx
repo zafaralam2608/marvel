@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from 'prop-types';
@@ -18,7 +18,7 @@ function Header({ handleDrawerOpen, open, heading }) {
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          {heading || 'Dashboard'}
+          {heading || ''}
         </Typography>
       </Toolbar>
     </AppBar>

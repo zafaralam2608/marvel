@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { loadProfile } from '../constant/action';
 import { buildParams } from '../util/apiUtility';
-import { apiUrl } from '../constant/route';
 
 export function getProfilePending() {
   return {
@@ -27,7 +26,7 @@ export function getProfileSuccess(payload, comp) {
 export const getProfile = (comp, id) => (
   (dispatch) => {
     dispatch(getProfilePending());
-    return axios.get(`${apiUrl}/${comp.link}/${id}`, {
+    return axios.get(`${comp.link}/${id}`, {
       params: buildParams(),
     })
       .then((response) => {
