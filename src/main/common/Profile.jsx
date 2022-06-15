@@ -47,7 +47,7 @@ function Profile({
               {
                 comp.child.map(
                   (item) => (
-                    <Button key={item.link.slice(1)} href={`${id}/${item.link}`} iden={`/${id}`}>
+                    <Button key={item.link.slice(1)} href={`#/${comp.link}/${id}/${item.link}`} iden={`/${id}`}>
                       {item.label}
                     </Button>
                   ),
