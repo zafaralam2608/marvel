@@ -20,7 +20,7 @@ function Thumbnail({ profile, path }) {
         <CardMedia
           sx={{ height: '250px', width: '250px' }}
           component="img"
-          src={`${thumbnail.path}/standard_medium.${thumbnail.extension}`}
+          src={`${thumbnail.path}/standard_large.${thumbnail.extension}`}
           onError={(e) => { e.target.src = imageNotFound; }}
         />
       </CardActionArea>

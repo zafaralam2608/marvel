@@ -8,9 +8,10 @@ import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import Thumbnail from './Thumbnail';
 import { getItems } from '../action/albumAction';
+import Header from '../component/Header';
 
 function Album({
-  comp, album, dispatch, setHeading, parent,
+  comp, album, dispatch, parent, handleDrawerOpen, open,
 }) {
   const { id } = useParams();
   const {
@@ -42,7 +43,6 @@ function Album({
   const lastItem = (size * page < total) ? size * page : total;
 
   useEffect(() => {
-    setHeading(label);
     const params = { offset: (page - 1) * size, limit: size };
     if (search) {
       params[q] = search;
@@ -59,6 +59,11 @@ function Album({
 
   return (
     <Box>
+      <Header
+        handleDrawerOpen={handleDrawerOpen}
+        open={open}
+        heading={label}
+      />
       <Grid container justifyContent="space-evenly">
         <Grid item sx={{ m: 1, minWidth: 120 }}>
           <TextField size="small" placeholder="Search" value={search} onChange={handleChangeSearch} />
@@ -120,8 +125,9 @@ Album.propTypes = {
     })),
     error: PropTypes.bool.isRequired,
   }).isRequired,
-  setHeading: PropTypes.func.isRequired,
   parent: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleDrawerOpen: PropTypes.func.isRequired,
 };
 
 export default connect((store) => ({

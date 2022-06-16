@@ -4,11 +4,11 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PropTypes from 'prop-types';
+import Header from '../component/Header';
 
-function Error({ comp, setHeading }) {
+function Error({ comp, handleDrawerOpen, open }) {
   const { title, message, image } = comp;
   useEffect(() => {
-    setHeading(title);
   }, []);
 
   return (
@@ -19,6 +19,11 @@ function Error({ comp, setHeading }) {
         flexDirection: 'row',
       }}
     >
+      <Header
+        handleDrawerOpen={handleDrawerOpen}
+        open={open}
+        heading={title}
+      />
       <Grid container justifyContent="center">
         <Card sx={{ width: '100%', textAlign: 'center' }}>
           <CardHeader
@@ -49,7 +54,8 @@ Error.propTypes = {
     message: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
-  setHeading: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleDrawerOpen: PropTypes.func.isRequired,
 };
 
 export default Error;

@@ -10,7 +10,7 @@ import albumList from '../constant/album';
 import profileList from '../constant/profile';
 import errorList from '../constant/error';
 
-function Content({ setHeading }) {
+function Content({ handleDrawerOpen, open }) {
   return (
     <Box
       component="main"
@@ -30,7 +30,14 @@ function Content({ setHeading }) {
                 <Route
                   key={item.link}
                   path={item.link}
-                  element={<Album comp={item} parent="" setHeading={setHeading} />}
+                  element={(
+                    <Album
+                      comp={item}
+                      parent=""
+                      handleDrawerOpen={handleDrawerOpen}
+                      open={open}
+                    />
+                  )}
                 />
               ),
             )
@@ -41,7 +48,13 @@ function Content({ setHeading }) {
                 <Route
                   key={`${item.link}-id`}
                   path={`${item.link}/:id`}
-                  element={<Profile comp={item} setHeading={setHeading} />}
+                  element={(
+                    <Profile
+                      comp={item}
+                      handleDrawerOpen={handleDrawerOpen}
+                      open={open}
+                    />
+                  )}
                 />
               ),
             )
@@ -54,7 +67,14 @@ function Content({ setHeading }) {
                     <Route
                       key={`${der.link}-id-${item.link}`}
                       path={`${der.link}/:id/${item.link}`}
-                      element={<Album comp={item} parent={der.link} setHeading={setHeading} />}
+                      element={(
+                        <Album
+                          comp={item}
+                          parent={der.link}
+                          handleDrawerOpen={handleDrawerOpen}
+                          open={open}
+                        />
+                      )}
                     />
                   ),
                 )
@@ -67,12 +87,18 @@ function Content({ setHeading }) {
                 <Route
                   key={item.link.slice(1)}
                   path={item.link}
-                  element={<Error comp={item} setHeading={setHeading} />}
+                  element={(
+                    <Error
+                      comp={item}
+                      handleDrawerOpen={handleDrawerOpen}
+                      open={open}
+                    />
+                  )}
                 />
               ),
             )
           }
-          <Route path="*" element={<Navigate to={errorList[0].link} replace setHeading={setHeading} />} />
+          <Route path="*" element={<Navigate to={errorList[0].link} replace />} />
         </Routes>
       </Container>
     </Box>
@@ -80,7 +106,8 @@ function Content({ setHeading }) {
 }
 
 Content.propTypes = {
-  setHeading: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleDrawerOpen: PropTypes.func.isRequired,
 };
 
 export default Content;
