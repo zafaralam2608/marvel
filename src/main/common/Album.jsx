@@ -11,7 +11,7 @@ import { getItems } from '../action/albumAction';
 import Header from '../component/Header';
 
 function Album({
-  comp, album, dispatch, parent, handleDrawerOpen, open,
+  comp, album, dispatch, parent,
 }) {
   const { id } = useParams();
   const {
@@ -75,11 +75,7 @@ function Album({
 
   return (
     <Box>
-      <Header
-        handleDrawerOpen={handleDrawerOpen}
-        open={open}
-        heading={label}
-      />
+      <Header heading={label} />
       <Grid container justifyContent="space-evenly">
         <Grid item sx={{ m: 1, minWidth: 120 }}>
           <TextField size="small" placeholder="Title" value={search} onChange={handleChangeSearch} />
@@ -160,8 +156,6 @@ Album.propTypes = {
     error: PropTypes.bool.isRequired,
   }).isRequired,
   parent: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
-  handleDrawerOpen: PropTypes.func.isRequired,
 };
 
 export default connect((store) => ({

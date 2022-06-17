@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Divider, IconButton, Link, List, ListItem, ListItemIcon, ListItemText,
 } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import { ChevronLeft, Menu } from '@mui/icons-material';
-import PropTypes from 'prop-types';
 import Drawer from '../common/Drawer';
 import navList from '../constant/nav';
 
-function Sidebar({ open, handleDrawerOpen, handleDrawerClose }) {
+function Sidebar() {
+  const [open, setOpen] = useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Drawer variant="permanent" open={open}>
       <Toolbar
@@ -45,11 +54,5 @@ function Sidebar({ open, handleDrawerOpen, handleDrawerClose }) {
     </Drawer>
   );
 }
-
-Sidebar.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleDrawerOpen: PropTypes.func.isRequired,
-  handleDrawerClose: PropTypes.func.isRequired,
-};
 
 export default Sidebar;

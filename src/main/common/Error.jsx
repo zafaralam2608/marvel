@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PropTypes from 'prop-types';
 import Header from '../component/Header';
 
-function Error({ comp, handleDrawerOpen, open }) {
+function Error({ comp }) {
   const { title, message, image } = comp;
   useEffect(() => {
   }, []);
@@ -19,11 +19,7 @@ function Error({ comp, handleDrawerOpen, open }) {
         flexDirection: 'row',
       }}
     >
-      <Header
-        handleDrawerOpen={handleDrawerOpen}
-        open={open}
-        heading={title}
-      />
+      <Header heading={title} />
       <Grid container justifyContent="center">
         <Card sx={{ width: '100%', textAlign: 'center' }}>
           <CardHeader
@@ -54,8 +50,6 @@ Error.propTypes = {
     message: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
-  open: PropTypes.bool.isRequired,
-  handleDrawerOpen: PropTypes.func.isRequired,
 };
 
 export default Error;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Box, Container, Toolbar } from '@mui/material';
-import PropTypes from 'prop-types';
 import Album from '../common/Album';
 import Profile from '../common/Profile';
 import Error from '../common/Error';
@@ -10,7 +9,7 @@ import albumList from '../constant/album';
 import profileList from '../constant/profile';
 import errorList from '../constant/error';
 
-function Content({ handleDrawerOpen, open }) {
+function Content() {
   return (
     <Box
       component="main"
@@ -30,14 +29,7 @@ function Content({ handleDrawerOpen, open }) {
                 <Route
                   key={item.link}
                   path={item.link}
-                  element={(
-                    <Album
-                      comp={item}
-                      parent=""
-                      handleDrawerOpen={handleDrawerOpen}
-                      open={open}
-                    />
-                  )}
+                  element={<Album comp={item} parent="" />}
                 />
               ),
             )
@@ -48,13 +40,7 @@ function Content({ handleDrawerOpen, open }) {
                 <Route
                   key={`${item.link}-id`}
                   path={`${item.link}/:id`}
-                  element={(
-                    <Profile
-                      comp={item}
-                      handleDrawerOpen={handleDrawerOpen}
-                      open={open}
-                    />
-                  )}
+                  element={<Profile comp={item} />}
                 />
               ),
             )
@@ -67,14 +53,7 @@ function Content({ handleDrawerOpen, open }) {
                     <Route
                       key={`${der.link}-id-${item.link}`}
                       path={`${der.link}/:id/${item.link}`}
-                      element={(
-                        <Album
-                          comp={item}
-                          parent={der.link}
-                          handleDrawerOpen={handleDrawerOpen}
-                          open={open}
-                        />
-                      )}
+                      element={<Album comp={item} parent={der.link} />}
                     />
                   ),
                 )
@@ -87,13 +66,7 @@ function Content({ handleDrawerOpen, open }) {
                 <Route
                   key={item.link}
                   path={item.link}
-                  element={(
-                    <Error
-                      comp={item}
-                      handleDrawerOpen={handleDrawerOpen}
-                      open={open}
-                    />
-                  )}
+                  element={<Error comp={item} />}
                 />
               ),
             )
@@ -104,10 +77,5 @@ function Content({ handleDrawerOpen, open }) {
     </Box>
   );
 }
-
-Content.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleDrawerOpen: PropTypes.func.isRequired,
-};
 
 export default Content;

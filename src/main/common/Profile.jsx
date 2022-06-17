@@ -10,9 +10,7 @@ import Spinner from './Spinner';
 import imageNotFound from '../assets/imagenotfound.jpg';
 import Header from '../component/Header';
 
-function Profile({
-  comp, profile, dispatch, handleDrawerOpen, open,
-}) {
+function Profile({ comp, profile, dispatch }) {
   const { id } = useParams();
   const { link, titleParam, child } = comp;
   const {
@@ -37,11 +35,7 @@ function Profile({
 
   return (
     <Box>
-      <Header
-        handleDrawerOpen={handleDrawerOpen}
-        open={open}
-        heading={title}
-      />
+      <Header heading={title} />
       <Grid container spacing={3} alignContent="center" wrap="wrap-reverse">
         <Grid item lg={9} md={6} xs={12}>
           <Card>
@@ -124,8 +118,6 @@ Profile.propTypes = {
     count: PropTypes.object.isRequired,
     error: PropTypes.bool.isRequired,
   }).isRequired,
-  open: PropTypes.bool.isRequired,
-  handleDrawerOpen: PropTypes.func.isRequired,
 };
 
 export default connect((store) => ({
