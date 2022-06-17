@@ -33,7 +33,7 @@ function Error({ comp }) {
             image={image}
           />
           <CardActions sx={{ justifyContent: 'center' }}>
-            <Button href="#/" variant="contained" size="large" startIcon={(<ArrowBackIcon fontSize="small" />)} sx={{ width: '250px' }}>
+            <Button href="#/" variant="contained" size="large" color="primary" startIcon={(<ArrowBackIcon fontSize="small" />)} sx={{ width: '250px' }}>
               Go Home
             </Button>
           </CardActions>

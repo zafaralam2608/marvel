@@ -9,7 +9,7 @@ function Header({ heading }) {
       position="absolute"
     >
       <Toolbar sx={{ pr: '24px', textAlign: 'center' }}>
-        <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+        <Typography component="h1" variant="h6" noWrap sx={{ flexGrow: 1 }}>
           {heading || ''}
         </Typography>
       </Toolbar>

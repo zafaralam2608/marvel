@@ -13,11 +13,7 @@ function Content() {
   return (
     <Box
       component="main"
-      sx={{
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}
+      sx={{ flexGrow: 1, height: '100vh', overflow: 'auto' }}
     >
       <Toolbar />
       <Container maxWidth="100%" sx={{ mt: 5, mb: 5 }}>

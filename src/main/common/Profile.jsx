@@ -55,6 +55,7 @@ function Profile({ comp, profile, dispatch }) {
                       <Button
                         key={item.link}
                         variant="contained"
+                        color="primary"
                         size="large"
                         href={`#/${link}/${id}/${item.link}`}
                         disabled={!count[item.link]}

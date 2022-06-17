@@ -114,7 +114,7 @@ function Album({
             value={text}
             onChange={handleChangeText}
             endAdornment={(
-              <InputAdornment>
+              <InputAdornment position="end">
                 <IconButton
                   sx={{ borderRadius: 0 }}
                   variant="outlined"

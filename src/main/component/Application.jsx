@@ -5,7 +5,7 @@ import Layout from './Layout';
 function Application() {
   const theme = createTheme({
     palette: {
-      type: 'dark',
+      mode: 'dark',
     },
   });
 
