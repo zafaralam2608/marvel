@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Layout from './Layout';
+import { ColorModeContext } from '../constant/context';
 
 function Application() {
-  const theme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
+  const [darkMode, setDarkMode] = useState(true);
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setDarkMode((prevMode) => (!prevMode));
+      },
+    }),
+    [],
+  );
+
+  const theme = useMemo(
+    () => createTheme({
+      palette: {
+        mode: darkMode ? 'dark' : 'light',
+      },
+    }),
+    [darkMode],
+  );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Layout />
-    </ThemeProvider>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <Layout />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 
