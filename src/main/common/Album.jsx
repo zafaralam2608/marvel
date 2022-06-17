@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 import {
-  Box, FormControl, FormHelperText, Grid, IconButton, MenuItem, Pagination, Select, TextField,
+  Box, FormControl, FormHelperText, Grid, IconButton, InputAdornment, MenuItem, OutlinedInput,
+  Pagination, Select,
 } from '@mui/material';
-import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
+import { ArrowDownward, ArrowUpward, Search } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import Thumbnail from './Thumbnail';
@@ -22,14 +23,19 @@ function Album({
     error, items, total, loading,
   } = album;
 
+  const [text, setText] = useState('');
   const [search, setSearch] = useState('');
   const [order, setOrder] = useState('');
   const [descending, setDescending] = useState(false);
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
 
-  const handleChangeSearch = (event) => {
-    setSearch(event.target.value);
+  const handleChangeText = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleSearchClick = () => {
+    setSearch(text);
     setPage(1);
   };
 
@@ -87,7 +93,24 @@ function Album({
       <Header heading={label} />
       <Grid container justifyContent="space-evenly">
         <Grid item>
-          <TextField size="small" placeholder="Title" value={search} onChange={handleChangeSearch} />
+          <OutlinedInput
+            size="small"
+            placeholder="Title"
+            value={text}
+            onChange={handleChangeText}
+            endAdornment={(
+              <InputAdornment>
+                <IconButton
+                  sx={{ borderRadius: 0 }}
+                  variant="outlined"
+                  size="medium"
+                  onClick={handleSearchClick}
+                >
+                  <Search />
+                </IconButton>
+              </InputAdornment>
+            )}
+          />
           <FormHelperText>Search</FormHelperText>
         </Grid>
         <Grid item>
