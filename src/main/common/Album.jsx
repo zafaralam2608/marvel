@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 import {
-  Box, FormControl, FormHelperText, Grid, MenuItem, Pagination, Select, TextField,
+  Box, FormControl, FormHelperText, Grid, IconButton, MenuItem, Pagination, Select, TextField,
 } from '@mui/material';
+import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import Thumbnail from './Thumbnail';
@@ -23,6 +24,7 @@ function Album({
 
   const [search, setSearch] = useState('');
   const [order, setOrder] = useState('');
+  const [descending, setDescending] = useState(false);
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
 
@@ -33,6 +35,12 @@ function Album({
 
   const handleChangeOrder = (event) => {
     setOrder(event.target.value);
+    setDescending(false);
+    setPage(1);
+  };
+
+  const handleChangeDes = () => {
+    setDescending(!descending);
     setPage(1);
   };
 
@@ -54,12 +62,13 @@ function Album({
     if (search) {
       params[searchParam] = search;
     }
+    const prefix = (descending) ? '-' : '';
     if (order) {
-      params.orderBy = order;
+      params.orderBy = `${prefix}${order}`;
     }
     const apiLink = (parent && id) ? `${parent}/${id}/${link}` : link;
     dispatch(getItems(apiLink, params, titleParam));
-  }, [parent, comp, search, order, size, page]);
+  }, [parent, comp, search, order, descending, size, page]);
 
   if (error) {
     return (
@@ -77,12 +86,12 @@ function Album({
     <Box>
       <Header heading={label} />
       <Grid container justifyContent="space-evenly">
-        <Grid item sx={{ m: 1, minWidth: 120 }}>
+        <Grid item>
           <TextField size="small" placeholder="Title" value={search} onChange={handleChangeSearch} />
           <FormHelperText>Search</FormHelperText>
         </Grid>
         <Grid item>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl>
             <Select
               value={order}
               onChange={handleChangeOrder}
@@ -96,9 +105,22 @@ function Album({
             </Select>
             <FormHelperText>Sort by</FormHelperText>
           </FormControl>
+          {order && (
+            <FormControl>
+              <IconButton
+                sx={{ borderRadius: 0 }}
+                variant="outlined"
+                size="medium"
+                onClick={handleChangeDes}
+              >
+                {descending ? <ArrowDownward /> : <ArrowUpward />}
+              </IconButton>
+              <FormHelperText>{descending ? 'Desc' : 'Asc'}</FormHelperText>
+            </FormControl>
+          )}
         </Grid>
         <Grid item>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl>
             <Select
               value={size}
               onChange={handleChangeSize}
