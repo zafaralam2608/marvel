@@ -15,18 +15,25 @@ function Album({
 }) {
   const { id } = useParams();
   const {
-    link, label, q, t,
+    link, label, titleParam, searchParam, orderParam,
   } = comp;
   const {
     error, items, total, loading,
   } = album;
 
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState(10);
   const [search, setSearch] = useState('');
+  const [order, setOrder] = useState('');
+  const [size, setSize] = useState(10);
+  const [page, setPage] = useState(1);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value);
+    setPage(1);
+  };
+
+  const handleChangeOrder = (event) => {
+    setOrder(event.target.value);
+    setPage(1);
   };
 
   const handleChangeSize = (event) => {
@@ -34,26 +41,35 @@ function Album({
     setPage(1);
   };
 
-  const handleChangeSearch = (event) => {
-    setSearch(event.target.value);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
   const totalPages = Math.ceil(total / size);
   const firstItem = (total) ? size * (page - 1) + 1 : 0;
-  const lastItem = (size * page < total) ? size * page : total;
+  const lastItem = Math.min(size * page, total);
 
   useEffect(() => {
     const params = { offset: (page - 1) * size, limit: size };
     if (search) {
-      params[q] = search;
+      params[searchParam] = search;
+    }
+    if (order) {
+      params.orderBy = order;
     }
     const apiLink = (parent && id) ? `${parent}/${id}/${link}` : link;
-    dispatch(getItems(apiLink, params, t));
-  }, [parent, comp, page, size, search]);
+    dispatch(getItems(apiLink, params, titleParam));
+  }, [parent, comp, search, order, size, page]);
 
   if (error) {
     return (
       <Navigate to="/500" replace />
+    );
+  }
+
+  if (loading) {
+    return (
+      <Spinner />
     );
   }
 
@@ -64,9 +80,26 @@ function Album({
         open={open}
         heading={label}
       />
-      <Grid container justifyContent="space-evenly">
+      <Grid container justifyContent="space-evenly" wrap="wrap">
         <Grid item sx={{ m: 1, minWidth: 120 }}>
-          <TextField size="small" placeholder="Search" value={search} onChange={handleChangeSearch} />
+          <TextField size="small" placeholder="Title" value={search} onChange={handleChangeSearch} />
+          <FormHelperText>Search</FormHelperText>
+        </Grid>
+        <Grid item>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              value={order}
+              onChange={handleChangeOrder}
+              size="small"
+            >
+              {
+                orderParam.map((item) => (
+                  <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+                ))
+              }
+            </Select>
+            <FormHelperText>Sort by</FormHelperText>
+          </FormControl>
         </Grid>
         <Grid item>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -88,21 +121,15 @@ function Album({
           <FormHelperText>{`Showing ${firstItem} to ${lastItem} of ${total} items`}</FormHelperText>
         </Grid>
       </Grid>
-      {
-        loading
-          ? (<Spinner />)
-          : (
-            <Grid container justifyContent="center">
-              {
-                items.map(
-                  (item) => (
-                    <Thumbnail key={item.id} profile={item} path={comp.link} />
-                  ),
-                )
-              }
-            </Grid>
+      <Grid container justifyContent="center">
+        {
+          items.map(
+            (item) => (
+              <Thumbnail key={item.id} profile={item} path={comp.link} />
+            ),
           )
-      }
+        }
+      </Grid>
     </Box>
   );
 }
@@ -111,8 +138,14 @@ Album.propTypes = {
   comp: PropTypes.exact({
     link: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    q: PropTypes.string.isRequired,
-    t: PropTypes.string.isRequired,
+    titleParam: PropTypes.string.isRequired,
+    searchParam: PropTypes.string.isRequired,
+    orderParam: PropTypes.arrayOf(
+      PropTypes.exact({
+        label: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
   album: PropTypes.exact({

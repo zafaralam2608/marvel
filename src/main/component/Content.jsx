@@ -85,7 +85,7 @@ function Content({ handleDrawerOpen, open }) {
             errorList.map(
               (item) => (
                 <Route
-                  key={item.link.slice(1)}
+                  key={item.link}
                   path={item.link}
                   element={(
                     <Error

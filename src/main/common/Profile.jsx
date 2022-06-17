@@ -21,13 +21,17 @@ function Profile({
 
   useEffect(() => {
     dispatch(getProfile(`${link}/${id}`, t));
-  }, []);
-
-  if (loading) { return <Spinner />; }
+  }, [comp, id]);
 
   if (error) {
     return (
       <Navigate to="/500" replace />
+    );
+  }
+
+  if (loading) {
+    return (
+      <Spinner />
     );
   }
 
@@ -38,7 +42,7 @@ function Profile({
         open={open}
         heading={title}
       />
-      <Grid container spacing={3} alignContent="center">
+      <Grid container spacing={3} alignContent="center" wrap="wrap-reverse">
         <Grid item lg={9} md={6} xs={12}>
           <Card>
             <CardHeader
