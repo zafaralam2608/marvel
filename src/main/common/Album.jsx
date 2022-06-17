@@ -24,6 +24,7 @@ function Album({
   } = album;
 
   const [text, setText] = useState('');
+  const [clicked, setClicked] = useState(true);
   const [search, setSearch] = useState('');
   const [order, setOrder] = useState('');
   const [descending, setDescending] = useState(false);
@@ -32,30 +33,44 @@ function Album({
 
   const handleChangeText = (event) => {
     setText(event.target.value);
+    setClicked(false);
   };
 
   const handleSearchClick = () => {
     setSearch(text);
+    setClicked(true);
     setPage(1);
   };
 
   const handleChangeOrder = (event) => {
+    if (!clicked) {
+      handleSearchClick();
+    }
     setOrder(event.target.value);
     setDescending(false);
     setPage(1);
   };
 
   const handleChangeDes = () => {
+    if (!clicked) {
+      handleSearchClick();
+    }
     setDescending(!descending);
     setPage(1);
   };
 
   const handleChangeSize = (event) => {
+    if (!clicked) {
+      handleSearchClick();
+    }
     setSize(parseInt(event.target.value, 10));
     setPage(1);
   };
 
   const handleChangePage = (event, newPage) => {
+    if (!clicked) {
+      handleSearchClick();
+    }
     setPage(newPage);
   };
 
@@ -66,7 +81,7 @@ function Album({
   useEffect(() => {
     const params = { offset: (page - 1) * size, limit: size };
     if (search) {
-      params[searchParam] = search;
+      params[searchParam] = search.trim();
     }
     const prefix = (descending) ? '-' : '';
     if (order) {
