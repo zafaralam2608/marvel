@@ -3,12 +3,12 @@ import {
   Divider, IconButton, Link, List, ListItem, ListItemIcon, ListItemText,
 } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
-import { ChevronLeft } from '@mui/icons-material';
+import { ChevronLeft, Menu } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import Drawer from '../common/Drawer';
 import navList from '../constant/nav';
 
-function Sidebar({ open, handleDrawerClose }) {
+function Sidebar({ open, handleDrawerOpen, handleDrawerClose }) {
   return (
     <Drawer variant="permanent" open={open}>
       <Toolbar
@@ -19,8 +19,10 @@ function Sidebar({ open, handleDrawerClose }) {
           px: [1],
         }}
       >
-        <IconButton onClick={() => handleDrawerClose()}>
-          <ChevronLeft />
+        <IconButton onClick={() => (open ? handleDrawerClose() : handleDrawerOpen())}>
+          {open
+            ? (<ChevronLeft />)
+            : (<Menu />)}
         </IconButton>
       </Toolbar>
       <Divider />
@@ -46,6 +48,7 @@ function Sidebar({ open, handleDrawerClose }) {
 
 Sidebar.propTypes = {
   open: PropTypes.bool.isRequired,
+  handleDrawerOpen: PropTypes.func.isRequired,
   handleDrawerClose: PropTypes.func.isRequired,
 };
 

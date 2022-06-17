@@ -20,6 +20,7 @@ function Layout() {
       <CssBaseline />
       <HashRouter>
         <Sidebar
+          handleDrawerOpen={handleDrawerOpen}
           handleDrawerClose={handleDrawerClose}
           open={open}
         />
