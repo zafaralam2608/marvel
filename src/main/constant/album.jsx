@@ -1,7 +1,13 @@
+import React from 'react';
+import {
+  Event, LibraryBooks, Man, MenuBook, People,
+} from '@mui/icons-material';
+
 const albumList = [
   {
     link: 'comics',
     label: 'Comics',
+    icon: (<MenuBook />),
     titleParam: 'title',
     searchParam: 'titleStartsWith',
     orderParam: [
@@ -13,6 +19,7 @@ const albumList = [
   {
     link: 'characters',
     label: 'Characters',
+    icon: (<People />),
     titleParam: 'name',
     searchParam: 'nameStartsWith',
     orderParam: [
@@ -23,6 +30,7 @@ const albumList = [
   {
     link: 'creators',
     label: 'Creators',
+    icon: (<Man />),
     titleParam: 'fullName',
     searchParam: 'nameStartsWith',
     orderParam: [
@@ -35,6 +43,7 @@ const albumList = [
   {
     link: 'events',
     label: 'Events',
+    icon: (<Event />),
     titleParam: 'title',
     searchParam: 'nameStartsWith',
     orderParam: [
@@ -46,6 +55,7 @@ const albumList = [
   {
     link: 'series',
     label: 'Series',
+    icon: (<LibraryBooks />),
     titleParam: 'title',
     searchParam: 'titleStartsWith',
     orderParam: [

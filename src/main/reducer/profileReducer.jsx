@@ -5,6 +5,7 @@ const initialState = {
   title: '',
   description: '',
   thumbnail: '',
+  count: {},
   error: false,
 };
 
@@ -18,6 +19,7 @@ const profileReducer = (state = initialState, action) => {
       finalState.title = '';
       finalState.description = '';
       finalState.thumbnail = '';
+      finalState.count = {};
       break;
     }
     case loadProfile.failure: {
@@ -25,6 +27,7 @@ const profileReducer = (state = initialState, action) => {
       finalState.title = '';
       finalState.description = '';
       finalState.thumbnail = '';
+      finalState.count = {};
       finalState.error = true;
       break;
     }
@@ -33,7 +36,12 @@ const profileReducer = (state = initialState, action) => {
       finalState.error = false;
       if (action.payload.data.total === 1) {
         const result = action.payload.data.results[0];
-        finalState.title = result[action.t];
+        finalState.title = result[action.titleParam];
+        action.child.forEach((item) => {
+          const { link } = item;
+          const { available } = result[link];
+          finalState.count[link] = available;
+        });
         finalState.description = result.description || '';
         finalState.thumbnail = `${result.thumbnail.path}/portrait_uncanny.${result.thumbnail.extension}`;
       }

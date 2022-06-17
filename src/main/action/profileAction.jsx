@@ -15,22 +15,23 @@ export function getProfileFailure(payload) {
   };
 }
 
-export function getProfileSuccess(payload, t) {
+export function getProfileSuccess(payload, titleParam, child) {
   return {
     type: loadProfile.success,
     payload,
-    t,
+    titleParam,
+    child,
   };
 }
 
-export const getProfile = (apiLink, t) => (
+export const getProfile = (apiLink, titleParam, child) => (
   (dispatch) => {
     dispatch(getProfilePending());
     return axios.get(`${API_URL}${apiLink}`, {
       params: buildParams(),
     })
       .then((response) => {
-        dispatch(getProfileSuccess(response.data, t));
+        dispatch(getProfileSuccess(response.data, titleParam, child));
       })
       .catch((err) => {
         dispatch(getProfileFailure(err));

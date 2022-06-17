@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
-  Box, Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography,
+  Badge, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { getProfile } from '../action/profileAction';
@@ -14,13 +14,13 @@ function Profile({
   comp, profile, dispatch, handleDrawerOpen, open,
 }) {
   const { id } = useParams();
-  const { link, t, child } = comp;
+  const { link, titleParam, child } = comp;
   const {
-    loading, title, description, thumbnail, error,
+    loading, title, description, thumbnail, count, error,
   } = profile;
 
   useEffect(() => {
-    dispatch(getProfile(`${link}/${id}`, t));
+    dispatch(getProfile(`${link}/${id}`, titleParam, child));
   }, [comp, id]);
 
   if (error) {
@@ -54,17 +54,29 @@ function Profile({
               </Typography>
             </CardContent>
             <CardActions>
-              <ButtonGroup variant="contained" fullWidth>
+              <Grid container justifyContent="center">
                 {
                   child.map(
                     (item) => (
-                      <Button key={item.link} href={`#/${comp.link}/${id}/${item.link}`} iden={`/${id}`}>
+                      <Button
+                        key={item.link}
+                        variant="contained"
+                        size="large"
+                        href={`#/${link}/${id}/${item.link}`}
+                        disabled={!count[item.link]}
+                        sx={{ width: '180px', margin: '5px' }}
+                        endIcon={(
+                          <Badge badgeContent={count[item.link]} color="secondary" max={9999} showZero>
+                            {item.icon}
+                          </Badge>
+                        )}
+                      >
                         {item.label}
                       </Button>
                     ),
                   )
                 }
-              </ButtonGroup>
+              </Grid>
             </CardActions>
           </Card>
         </Grid>
@@ -88,12 +100,19 @@ function Profile({
 Profile.propTypes = {
   comp: PropTypes.exact({
     link: PropTypes.string.isRequired,
-    t: PropTypes.string.isRequired,
+    titleParam: PropTypes.string.isRequired,
     child: PropTypes.arrayOf(PropTypes.shape({
       link: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      q: PropTypes.string.isRequired,
-      t: PropTypes.string.isRequired,
+      icon: PropTypes.node.isRequired,
+      titleParam: PropTypes.string.isRequired,
+      searchParam: PropTypes.string.isRequired,
+      orderParam: PropTypes.arrayOf(
+        PropTypes.exact({
+          label: PropTypes.string.isRequired,
+          value: PropTypes.string.isRequired,
+        }),
+      ).isRequired,
     })).isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
@@ -102,6 +121,7 @@ Profile.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
+    count: PropTypes.object.isRequired,
     error: PropTypes.bool.isRequired,
   }).isRequired,
   open: PropTypes.bool.isRequired,

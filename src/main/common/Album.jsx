@@ -80,7 +80,7 @@ function Album({
         open={open}
         heading={label}
       />
-      <Grid container justifyContent="space-evenly" wrap="wrap">
+      <Grid container justifyContent="space-evenly">
         <Grid item sx={{ m: 1, minWidth: 120 }}>
           <TextField size="small" placeholder="Title" value={search} onChange={handleChangeSearch} />
           <FormHelperText>Search</FormHelperText>
@@ -138,6 +138,7 @@ Album.propTypes = {
   comp: PropTypes.exact({
     link: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    icon: PropTypes.node.isRequired,
     titleParam: PropTypes.string.isRequired,
     searchParam: PropTypes.string.isRequired,
     orderParam: PropTypes.arrayOf(
