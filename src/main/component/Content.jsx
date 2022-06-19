@@ -5,7 +5,7 @@ import Album from '../common/Album';
 import Profile from '../common/Profile';
 import Error from '../common/Error';
 import navList from '../constant/nav';
-import albumList from '../constant/album';
+import contentList from '../constant/content';
 import profileList from '../constant/profile';
 import errorList from '../constant/error';
 
@@ -20,12 +20,12 @@ function Content() {
         <Routes>
           <Route index element={<Navigate to={navList[0].link} replace />} />
           {
-            albumList.map(
+            contentList.map(
               (item) => (
                 <Route
                   key={item.link}
                   path={item.link}
-                  element={<Album comp={item} parent="" />}
+                  element={item.element}
                 />
               ),
             )

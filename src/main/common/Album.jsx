@@ -83,8 +83,8 @@ function Album({
     if (search) {
       params[searchParam] = search.trim();
     }
-    const prefix = (descending) ? '-' : '';
     if (order) {
+      const prefix = (descending) ? '-' : '';
       params.orderBy = `${prefix}${order}`;
     }
     const apiLink = (parent && id) ? `${parent}/${id}/${link}` : link;
