@@ -10,14 +10,6 @@ import navList from '../constant/nav';
 function Sidebar() {
   const [open, setOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
     <Drawer variant="permanent" open={open}>
       <Toolbar
@@ -28,7 +20,7 @@ function Sidebar() {
           px: [1],
         }}
       >
-        <IconButton onClick={() => (open ? handleDrawerClose() : handleDrawerOpen())}>
+        <IconButton onClick={() => (setOpen(!open))}>
           {open
             ? (<ChevronLeft />)
             : (<Menu />)}
