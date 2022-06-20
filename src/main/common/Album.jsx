@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 import {
-  Box, FormControl, FormHelperText, Grid, IconButton, InputAdornment, MenuItem, OutlinedInput,
-  Pagination, Select,
+  Box, Divider, FormControl, FormHelperText, Grid, IconButton, InputAdornment, MenuItem,
+  OutlinedInput, Pagination, Select,
 } from '@mui/material';
 import { ArrowDownward, ArrowUpward, Search } from '@mui/icons-material';
 import PropTypes from 'prop-types';
@@ -177,6 +177,7 @@ function Album({
           <FormHelperText>{`Showing ${firstItem} to ${lastItem} of ${total} items`}</FormHelperText>
         </Grid>
       </Grid>
+      <Divider sx={{ m: '10px' }} />
       <Grid container justifyContent="center">
         {
           items.map(

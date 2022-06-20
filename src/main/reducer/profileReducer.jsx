@@ -5,6 +5,7 @@ const initialState = {
   title: '',
   description: '',
   thumbnail: '',
+  url: '',
   count: {},
   error: false,
 };
@@ -19,6 +20,7 @@ const profileReducer = (state = initialState, action) => {
       finalState.title = '';
       finalState.description = '';
       finalState.thumbnail = '';
+      finalState.url = '';
       finalState.count = {};
       break;
     }
@@ -27,6 +29,7 @@ const profileReducer = (state = initialState, action) => {
       finalState.title = '';
       finalState.description = '';
       finalState.thumbnail = '';
+      finalState.url = '';
       finalState.count = {};
       finalState.error = true;
       break;
@@ -44,6 +47,13 @@ const profileReducer = (state = initialState, action) => {
         });
         finalState.description = result.description || '';
         finalState.thumbnail = `${result.thumbnail.path}/portrait_uncanny.${result.thumbnail.extension}`;
+        const links = result.urls;
+        links.forEach((link) => {
+          const { type, url } = link;
+          if (type === 'detail') {
+            finalState.url = url;
+          }
+        });
       }
       break;
     }

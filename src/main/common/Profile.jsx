@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
-  Badge, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography,
+  Badge, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Grid,
+  Typography,
 } from '@mui/material';
+import { Language } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { getProfile } from '../action/profileAction';
 import Spinner from './Spinner';
@@ -14,7 +16,7 @@ function Profile({ comp, profile, dispatch }) {
   const { id } = useParams();
   const { link, titleParam, child } = comp;
   const {
-    loading, title, description, thumbnail, count, error,
+    loading, title, description, thumbnail, url, count, error,
   } = profile;
 
   useEffect(() => {
@@ -42,11 +44,12 @@ function Profile({ comp, profile, dispatch }) {
             <CardHeader
               title="Description"
             />
-            <CardContent sx={{ minHeight: '352px' }}>
+            <CardContent sx={{ minHeight: '405px' }}>
               <Typography component="div" variant="subtitle1">
                 {description}
               </Typography>
             </CardContent>
+            <Divider />
             <CardActions>
               <Grid container justifyContent="center">
                 {
@@ -85,6 +88,23 @@ function Profile({ comp, profile, dispatch }) {
               src={thumbnail}
               onError={(e) => { e.target.src = imageNotFound; }}
             />
+            <Divider />
+            <CardActions>
+              <Grid container justifyContent="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  href={url}
+                  target="_blank"
+                  disabled={!url}
+                  sx={{ width: '180px', margin: '5px' }}
+                  endIcon={<Language />}
+                >
+                  Official
+                </Button>
+              </Grid>
+            </CardActions>
           </Card>
         </Grid>
       </Grid>
@@ -116,6 +136,7 @@ Profile.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
     count: PropTypes.object.isRequired,
     error: PropTypes.bool.isRequired,
   }).isRequired,
